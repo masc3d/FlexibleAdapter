@@ -36,6 +36,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
+
 import eu.davidea.flexibleadapter.helpers.ItemTouchHelperCallback;
 import eu.davidea.flexibleadapter.helpers.StickyHeaderHelper;
 import eu.davidea.flexibleadapter.items.IExpandable;
@@ -1388,6 +1389,7 @@ public class FlexibleAdapter<T extends IFlexible>
 
     /**
      * Enable or disable sticky headers helper
+     *
      * @param enabled true to initialize & attach sticky headers helper, false to dispose it.
      */
     private void setStickyHeadersHelper(final boolean enabled) {
@@ -1738,6 +1740,13 @@ public class FlexibleAdapter<T extends IFlexible>
             throw new IllegalStateException(
                     String.format("ViewType instance not found for viewType %s. You should implement the AutoMap properly.", viewType));
         }
+        return this.onCreateViewHolder(item, parent, viewType);
+    }
+
+    /**
+     * Create view hold for specific item
+     */
+    protected RecyclerView.ViewHolder onCreateViewHolder(@NonNull T item, @NonNull ViewGroup parent, int viewType) {
         if (mInflater == null) {
             mInflater = LayoutInflater.from(parent.getContext());
         }
